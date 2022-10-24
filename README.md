@@ -26,6 +26,29 @@ To put the rM2 in recovery, you will need:
 * should see *USB Mass Storage device detected*
 * should see a new mountable block device
 
+## Guide next step (after your device mounted  correctly)
+*based on this guide https://operand.ca/2021/09/27/how_i_bricked_then_recovered_my_remarkable_2.html 
+ not all steps are essential to make it work; Here's what I did to make it boot properly.*
+ 
+Partition layout:
+1. boot stuff
+2. root
+3. another root
+4. the /root/ homedir, plus some extra files like log.txt
+
+*If your goal was just to recover your data, it would be enough to copy partition 4.
+ If your goal is to unbrick your device, there's still a few steps*
+
+* Partition 3 should be a form of recovery boot done automatically by remarkable. 
+ *It should have a later date and maybe also a different size than Partition 2.*
+
+* To be on the safe side, create a back-up of all files. 
+ *Partition 2 is propably the active, but broken, root* 
+* Copy Partition 3 on top of Partition 2. So partition 2 and 3 are identical.
+* Try to reboot the device. 
+* The device should now do an actual reboot and do a normal start up, most likely with an earlier software revision.
+
+
 ## Next steps
 * to recover the ssh password, mount the home partition `grep Developer <mountpoint>/root/.config/remarkable/xochitl.conf`
 * to find a mountpoint run `mount | grep home`
@@ -55,3 +78,4 @@ For more details checkout the wiki: https://remarkablewiki.com/tech/rm2_otg_pogo
 
 For details building u-boot and Linux to support this checkout
 [meta-freescale-3rdparty](https://github.com/Freescale/meta-freescale-3rdparty).
+
